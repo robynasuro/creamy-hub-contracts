@@ -3,16 +3,16 @@ async function main() {
   const NFTMinter = await ethers.getContractFactory("NFTMinter");
   
   // Deploy kontrak
+  console.log("Deploying NFTMinter...");
   const nftMinter = await NFTMinter.deploy();
   
-  // Tunggu sampai selesai deploy
-  await nftMinter.deployed();
+  // Tunggu transaksi deploy selesai
+  await nftMinter.waitForDeployment();
   
   // Cetak alamat kontrak
-  console.log("NFTMinter deployed to:", nftMinter.address);
+  console.log("NFTMinter deployed to:", await nftMinter.getAddress());
 }
 
-// Jalankan script dan tangkap error
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
